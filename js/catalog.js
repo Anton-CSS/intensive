@@ -1,8 +1,11 @@
 'use strict';
+import generateSubCatalog from './generateSubCatalog.js';
+import { getData } from './getData.js';
+
 
 export const useCatalog = () => {
+  const updateSubCatalog = generateSubCatalog();
   const btnBurger = document.querySelector('.btn-burger'),
-    btnClose = document.getElementById('hnf-menu-close-btn'),
     subcatalog = document.querySelector('.subcatalog'),
     subcatalogHeader = document.querySelector('.subcatalog-header'),
     btnReturn = document.querySelector('.btn-return'),
@@ -26,9 +29,15 @@ export const useCatalog = () => {
     event.preventDefault();
     const itemList = event.target.closest('.catalog-list__item');
     if (itemList) {
-      subcatalogHeader.innerHTML = event.target.innerHTML;
+      getData.subCatalog(event.target.textContent)
+      updateSubCatalog(event.target.textContent, data); 
       subcatalog.classList.add('subopen');
     }
+
+    if(event.target.closest('.btn-close')){
+      closeMenu();
+    }
+
   };
 
   const closeSubMenu = () => {
@@ -37,7 +46,6 @@ export const useCatalog = () => {
 
 
   btnBurger.addEventListener('click', openMenu);
-  btnClose.addEventListener('click', closeMenu);
   overlay.addEventListener('click', closeMenu);
   btnReturn.addEventListener('click', closeSubMenu);
   document.addEventListener('keydown', (event) => {
