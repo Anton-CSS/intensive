@@ -48,7 +48,7 @@ const generateFooter = () =>{
   `;
 
         document.body.insertAdjacentHTML('beforeend', footer);
-    })
+    });
 
 
 };

@@ -58,12 +58,10 @@ export const getData = {
         if(!arr.includes(item.category)){
           arr.push(item.category);
         }
-        
         return arr;
       }, []);
       callback(result);
     });
-    
   },
   subCatalog(value, callback){
     this.get((data) => {
@@ -74,6 +72,7 @@ export const getData = {
         }
         return arr;
       }, []);
+        
         callback(result);
     });
     

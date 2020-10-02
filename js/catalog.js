@@ -26,14 +26,16 @@ export const useCatalog = () => {
   }
 
   const openSubMenu = (event) => {
+    
     event.preventDefault();
     const itemList = event.target.closest('.catalog-list__item');
     if (itemList) {
-      getData.subCatalog(event.target.textContent)
-      updateSubCatalog(event.target.textContent, data); 
-      subcatalog.classList.add('subopen');
+      getData.subCatalog(event.target.textContent, (data) => {
+        updateSubCatalog(event.target.textContent, data); 
+        subcatalog.classList.add('subopen');
+      });
+      
     }
-
     if(event.target.closest('.btn-close')){
       closeMenu();
     }
@@ -47,12 +49,16 @@ export const useCatalog = () => {
 
   btnBurger.addEventListener('click', openMenu);
   overlay.addEventListener('click', closeMenu);
-  btnReturn.addEventListener('click', closeSubMenu);
   document.addEventListener('keydown', (event) => {
     if (event.code === 'Escape') {
       closeMenu();
     }
   })
   catalog.addEventListener('click', openSubMenu);
+  subcatalog.addEventListener('click',(event) =>{
+    const target = event.target;
+    if(target.closest('.btn-return')) closeSubMenu();
+  });
+  
 }
 
